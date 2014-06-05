@@ -1,0 +1,3 @@
+# view AndroidManifest.xml #generated:6
+-keep class fr.pfe.c3po.C3PO { <init>(...); }
+

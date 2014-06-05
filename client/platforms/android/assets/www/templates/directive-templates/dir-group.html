@@ -1,0 +1,52 @@
+<div class="group">
+    <div class="group-thumbnail">
+        <img ng-src="{{group.thumbnail}}" alt="Image du groupe"/>
+    </div>
+    <div class="group-content">
+        <div class="row">
+            <div class="col-xs-7">
+                <p class="text-primary clear-float group-title">{{group.name}}</p>
+            </div>
+            <div class="col-xs-5 pull-right">
+                <p class="text-muted pull-right group-date">Le {{group.date |date :'dd/MM'}} à {{group.date |date
+                    :'HH:mm'}}</p>
+            </div>
+        </div>
+        <p class="text-muted group-owner"><span
+                class="text-default icon-margin-right glyphicon glyphicon-user"></span>{{group.ownerPseudo}}
+        </p>
+
+        <p class="group-description"><span
+                class="icon-margin-right glyphicon glyphicon-flag"></span>{{group.description}}
+        </p>
+
+        <p class="group-address"><span class="icon-margin-right glyphicon glyphicon-map-marker"></span>{{group.address.fullAddress}}
+        </p>
+
+        <div class="group-toolbar">
+            <div class="btn-toolbar" ng-switch="isSubscribedToGroup(group.id)">
+                <a class="btn btn-group btn-success btn-xs" ui-sref="group({id:group.id})"
+                   ng-disabled="!(isSubscribedToGroup(group.id)|| isGroupOwner(group.ownerId))">
+                    <span class="icon-margin-right glyphicon glyphicon-eye-open"></span>Accès groupe
+                </a>
+
+                <div ng-switch-when="true">
+                    <button type="button" class="btn btn-group btn-warning btn-xs"
+                            ng-click="unsubscribe({groupId:group.id})"
+                            ng-disabled="isGroupOwner(group.ownerId)">
+                        <span class="icon-margin-right glyphicon glyphicon-remove"></span>Désabonner
+                    </button>
+                </div>
+                <div ng-switch-when="false">
+                    <button type="button" class="btn btn-group btn-danger btn-xs"
+                            ng-click="subscribe({groupId:group.id})"
+                            ng-disabled="isGroupOwner(group.ownerId)">
+                        <span class="icon-margin-right glyphicon glyphicon-ok"></span>S'abonner
+                    </button>
+                </div>
+                <div ng-switch-default>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="groups-toolbar">
+        <div class="input-group pull-right">
+            <input type="text" class="form-control" placeholder="Rechercher un groupe..."
+                   ng-model="groupsView.filterGroups">
+            <span class="input-group-btn">
+               <a href="#/groupes/ajout" class="btn btn-default" type="button">
+                   <span class="glyphicon glyphicon-plus"></span>
+               </a>
+            </span>
+        </div>
+        <div class="clear-float"></div>
+        <hr/>
+    </div>
+
+    <group-c3po ng-repeat="group in groupsView.groups | filter:groupsView.filterGroups | orderBy:'-date'" group="group" subscribe="subscribeGroup(groupId)" unsubscribe="unSubscribeGroup(groupId)"></group-c3po>
+</div>

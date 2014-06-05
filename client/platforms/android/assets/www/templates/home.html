@@ -1,0 +1,27 @@
+<div class="container-fluid">
+   <div class="well">
+      <h4 class="text-primary pull-left">Informations générales</h4>
+      <button type="button" class="btn btn-default pull-right" ng-click="refreshProxyInfo()">
+         <span class="glyphicon glyphicon-refresh"></span>
+      </button>
+      <div class="clear-float"></div>
+      <small><span class="text-danger">Dernier rafraîchissement : </span>{{proxy.lastInfoRefresh | date : 'medium'}}</small>
+      <hr/>
+      <div class="row">
+         <div class="col-xs-7 col-md-3">
+            <b>Etat du proxy :</b>
+         </div>
+         <div class="col-xs-5 col-md-9">
+            {{proxy.isConnected |iif : "En ligne" : "Hors ligne"}}
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-xs-7 col-md-3">
+            <b>Connexion temps réel :</b>
+         </div>
+         <div class="col-xs-5 col-md-9">
+            {{proxy.webSocket.isLoaded |iif : "Oui" : "Non"}}
+         </div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="container-fluid no-side-padding">
+   <tabset>
+      <tab heading="{{groupView.group.name}}">
+         <div class="group-container">
+            <div class="group-title">
+               <h3 class="text-primary">{{groupView.group.name}}</h3>
+            </div>
+            <hr/>
+            <div class="row post-tweet-bar">
+               <div class="col-xs-12">
+                  <div class="input-group">
+                     <input type="text" class="form-control" placeholder="Exprimez-vous" ng-model="groupView.clientTweet" maxlength="140" required>
+                     <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="sendTweet(groupView.clientTweet)">Tweet</button>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <hr/>
+
+            <div class="tweets-container">
+               <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="tweet in groupView.tweets">
+                     <div class="row">
+                        <div class="col-xs-3 col-sm-2 col-md-1 col-lg-1">
+                           <img src="../www/img/utils/tof.jpg" class="client-thumbnail" />
+                        </div>
+                        <div class="col-xs-9 col-sm-10 col-md-11 col-lg-11">
+                           <div class="tweet">
+                              <p>
+                                 <b>{{tweet.owner}}</b>
+                                 <span class="pull-right text-muted">Le {{tweet.date |date :'dd/MM'}} à {{tweet.date |date :'HH:mm:ss'}}</span>
+                              </p>
+                              <p class="small">
+                                 {{tweet.content}}
+                              </p>
+                           </div>
+                        </div>
+                     </div>
+                     <a class="pull-right no-decoration" ng-click="likeTweet(tweet.id);tweet.alreadyLiked=!tweet.alreadyLiked" ng-model="tweet.alreadyLiked">
+                        <span class="glyphicon icon-margin-right" ng-class="{'glyphicon-thumbs-down': tweet.alreadyLiked,'glyphicon-thumbs-up':!tweet.alreadyLiked}"></span>
+                        <span class="badge">{{tweet.liked}}</span>
+                     </a>
+                     <div class="clear-float"></div>
+                  </li>
+               </ul>
+            </div>
+
+         </div>
+      </tab>
+      <tab heading="Top Tweets">
+         Liste des top tweets
+      </tab>
+   </tabset>
+</div>

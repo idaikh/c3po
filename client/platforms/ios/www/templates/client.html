@@ -1,0 +1,88 @@
+<div class="container-fluid">
+   <div ng-switch="isUserRegistered()">
+      <div ng-switch-when="true">
+         <h3 class="text-primary pull-left">Informations générales</h3>
+         <div class="clear-float"></div>
+         <hr/>
+         <div class="row">
+            <div class="col-xs-3 col-md-2">
+               <b>Prénom</b>
+            </div>
+            <div class="col-xs-9 col-md-10">
+               {{userView.client.firstName}}
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-3 col-md-2">
+               <b>Nom</b>
+            </div>
+            <div class="col-xs-9 col-md-10">
+               {{userView.client.lastName}}
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-3 col-md-2">
+               <b>Mail</b>
+            </div>
+            <div class="col-xs-9 col-md-10">
+               {{userView.client.mail}}
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xs-3 col-md-2">
+               <b>Pseudo</b>
+            </div>
+            <div class="col-xs-9 col-md-10">
+               {{userView.client.pseudo}}
+            </div>
+         </div>
+      </div>
+      <div ng-switch-when="false">
+         <div class="well first-connexion register-card">
+            <!--            <img class="profil-avatar pull-left" src="../www/img/utils/c3po.jpg"></img>-->
+            <h3>
+               <b>Bienvenue sur C3PO</b>
+            </h3>
+            <!--
+            <div class="clear-float"></div>
+            <a>
+               <span class="glyphicon glyphicon-camera icon-margin-right"></span>Modifier avatar</a>
+-->
+            <hr/>
+            <form name="createClient" novalidate ng-submit="createNewClient(client)">
+               <div class="form-group">
+                  <label for="prenom">Prénom
+                     <small class="text-danger">requis</small>
+                  </label>
+                  <input type="text" class="form-control" id="prenom" placeholder="Prénom" ng-model="client.firstName" required maxlength="15">
+               </div>
+               <div class="form-group">
+                  <label for="nom">Nom
+                     <small class="text-danger">requis</small>
+                  </label>
+                  <input type="text" class="form-control" id="nom" placeholder="Nom" ng-model="client.lastName" required maxlength="15">
+               </div>
+               <div class="form-group">
+                  <label for="email">Adresse électronique
+                     <small class="text-danger">requis</small>
+                  </label>
+                  <input type="email" class="form-control" id="email" placeholder="Adresse électronique" ng-model="client.mail" required>
+                  <span class="help-block">
+                     <b>e.g: "mail@example.com"</b>
+                  </span>
+               </div>
+               <div>
+                  <b>Pseudonyme :</b>
+                  <span ng-show="client.firstName||client.lastName ">@{{client.firstName | lowercase}}{{client.lastName | lowercase}}</span>
+               </div>
+               <button type="submit" class="btn btn-default pull-right" ng-disabled="createClient.$invalid">
+                  <span class="glyphicon glyphicon-arrow-right"></span>
+               </button>
+               <div class="clear-float"></div>
+            </form>
+         </div>
+      </div>
+      <div ng-switch-default>
+      </div>
+   </div>
+</div>

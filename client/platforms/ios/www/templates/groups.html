@@ -1,0 +1,65 @@
+<div class="groups-page">
+   <div class="groups-page-header">
+
+   </div>
+   <div class="groups-page-content">
+
+      <!--
+      <div class="groups-toolbar">
+         <div class="input-group pull-right">
+            <input type="text" class="form-control" placeholder="Rechercher un groupe..." ng-model="groupsView.filterGroups">
+            <span class="input-group-btn">
+               <a href="#/groups/ajout" class="btn btn-default" type="button">
+                  <span class="glyphicon glyphicon-plus"></span>
+               </a>
+            </span>
+         </div>
+         <div class="clear-float"></div>
+         <hr/>
+      </div>
+-->
+
+      <ul class="list-group groups-list">
+         <li class="list-group-item group" ng-repeat="group in groupsView.groups | filter:{name:groupsView.filterGroups}">
+            <div class="group-thumbnail">
+               <p>totolorem</p>
+               <!--                  <img src="../www/img/utils/phone.png" />-->
+            </div>
+            <div class="group-container">
+               <div class="group-title">
+                  <h3 class="pull-left">{{group.name}}</h3>
+                  <span class="pull-right text-muted">Le {{group.date |date :'dd/MM'}} à {{group.date |date :'HH:mm:ss'}}</span>
+               </div>
+               <div class="group-body">
+                  <div class="group-content clear-float">
+                     <p>
+                        <b>{{group.ownerPseudo}}</b>
+                     </p>
+                     <p>{{group.description}}</p>
+                     <p>{{group.address.fullAddress}}</p>
+                     <p>{{group.address.latitude}} {{group.address.longitude}}</p>
+                  </div>
+                  <div class="btn-group" ng-switch="isSubscribedToGroup(group.id)">
+                     <a class="btn btn-default" ui-sref="group({id:group.id})" ng-disabled="!(isSubscribedToGroup(group.id)|| isGroupOwner(group.ownerId))">
+                        <span class="icon-margin-right glyphicon glyphicon-eye-open"></span>Accès groupe
+                     </a>
+                     <div ng-switch-when="true">
+                        <button type="button" class="btn btn-default" ng-click="unSubscribeGroup(group.id)" ng-disabled="isGroupOwner(group.ownerId)">
+                           <span class="icon-margin-right glyphicon glyphicon-remove"></span>Désabonner
+                        </button>
+                     </div>
+                     <div ng-switch-when="false">
+                        <button type="button" class="btn btn-default" ng-click="subscribeGroup(group.id)" ng-disabled="isGroupOwner(group.ownerId)">
+                           <span class="icon-margin-right glyphicon glyphicon-ok"></span>S'abonner
+                        </button>
+                     </div>
+                     <div ng-switch-default>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="clear-float"></div>
+         </li>
+      </ul>
+   </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="container-fluid">
+   <div ng-switch="isUserRegistered()">
+      <div ng-switch-when="true">
+        <ng-include src="'templates/client/infos.html'"></ng-include>
+      </div>
+      <div ng-switch-when="false">
+          <ng-include src="'templates/client/signup.html'"></ng-include>
+      </div>
+      <div ng-switch-default>
+      </div>
+   </div>
+</div>

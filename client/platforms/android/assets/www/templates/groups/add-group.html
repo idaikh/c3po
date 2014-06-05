@@ -1,0 +1,67 @@
+<div class="container-fluid sm-side-padding">
+    <hr/>
+    <div class="loader" ng-show="groupsAddView.loader">Chargement ...</div>
+
+    <form name="createGroup" novalidate ng-submit="createNewGroup(groupsAddView.group)">
+        <div class="form-group">
+            <label for="prenom">Nom
+                <small class="text-danger">requis</small>
+            </label>
+            <input type="text" class="form-control" id="prenom" placeholder="Nom du groupe"
+                   ng-model="groupsAddView.group.name" required>
+        </div>
+        <div class="form-group">
+            <label for="nom">Description
+                <small class="text-danger">requis</small>
+            </label>
+            <input type="text" class="form-control" id="nom" placeholder="Description"
+                   ng-model="groupsAddView.group.description" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Adresse
+                <small class="text-danger">requis</small>
+            </label>
+            <input type="text" class="form-control" id="email" placeholder="Localisation du groupe"
+                   ng-model="groupsAddView.group.address" required ng-if="!groupsAddView.useClientLocation">
+
+            <div class="checkbox help-block">
+                <label>
+                    <input type="checkbox" ng-model="groupsAddView.useClientLocation">Ma position
+                    <p class="text-primary" ng-show="groupsAddView.useClientLocation"><span
+                            class="glyphicon glyphicon glyphicon-map-marker icon-margin-right"></span>
+                        {{groupsAddView.clientLocalisation.fullAddress}}</p>
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="newGroup">
+                    <img ng-src="{{groupsAddView.group.thumbnail}}" alt="Photo du nouveau groupe"
+                         class="pull-left img-thumbnail"/>
+
+                    <div class="pull-left btn-group-vertical">
+                        <button type="button" class="btn btn-primary"><span
+                                class="glyphicon glyphicon-camera icon-margin-right"></span> Prendre une photo
+                        </button>
+                        <button type="button" class="btn btn-info"><span
+                                class="glyphicon glyphicon-picture icon-margin-right"></span> Choisir une photo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-top">
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-default pull-right" ng-disabled="createGroup.$invalid">
+                    Ajouter
+                    <span class="glyphicon glyphicon-plus icon-margin-left"></span>
+                </button>
+            </div>
+        </div>
+        <div class="clear-float"></div>
+        <alert ng-show="groupAlert" ng-click="groupAlert=!groupAlert" type="success" class="alert-margin">Groupe
+            ajouté
+            avec succès
+        </alert>
+    </form>
+</div>
