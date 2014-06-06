@@ -226,7 +226,7 @@ angular.module('c3po')
         var socket = {};
         return {
             isConnected: function (onSuccess, onError) {
-                $http.get("http://" + $rootScope.proxyAddress + ":3000").then(function (response) {
+                $http.get($rootScope.proxyAddress).then(function (response) {
                     onSuccess();
                 }, function (response) {
                     onError();
@@ -249,7 +249,7 @@ angular.module('c3po')
                 },
                 connect: function (onSuccess, onError) {
                     try {
-                        socket = io.connect("http://" + $rootScope.proxyAddress + ":3000", {
+                        socket = io.connect($rootScope.proxyAddress, {
                             'reconnection delay': 1000, // defaults to 500
                             'reconnection limit': 100, // defaults to Infinity
                             'max reconnection attempts': Infinity // defaults to 10

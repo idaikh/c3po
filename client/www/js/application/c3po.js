@@ -37,7 +37,7 @@ angular.module('c3po', ['ui.bootstrap', 'ui.router', 'ngAnimate', 'ngTouch'])
 
         /*  Use localhost for local test if a local proxy is running. Don't forget to change the address in socket.io
             src import in index.html */
-        $rootScope.proxyAddress="vps66697.ovh.net";
+        $rootScope.proxyAddress="http://localhost:3000";
 
         /**
          *  Initialize C3PO application, register distant (from Proxy) events listeners
