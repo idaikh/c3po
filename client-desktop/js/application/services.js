@@ -3,7 +3,7 @@ angular.module('c3po-desktop')
  *  Factory: C3poApp
  *  Application bootstrap/setup factory
  */
-    .factory('C3poApp', function ($rootScope, $location, LocalStorage, Groups, Proxy, Client, Geolocation, ProxyEventsHandler, LocalEventsHandler, Logger) {
+    .factory('C3poApp', function ($rootScope, $window, $state, $location, LocalStorage, Groups, Proxy, Client, Geolocation, ProxyEventsHandler, LocalEventsHandler, Logger) {
         return {
             bootstrap: function () {
                 //Globals
@@ -12,6 +12,9 @@ angular.module('c3po-desktop')
                 if ($rootScope.devMode) {
                     /* Clear local storage if devMode is set to true */
                     LocalStorage.clear();
+                    $rootScope.$apply(function() {
+                        $location.path('/welcome');
+                    });
                 }
 
                 /**
@@ -41,9 +44,8 @@ angular.module('c3po-desktop')
                  */
                 (function setUpProxy() {
                     Proxy.webSocket.connect(function () {
+                        $rootScope.proxyOnline = true;
                         Proxy.webSocket.on('connect', function () {
-                            $rootScope.proxyOnline = true;
-
                             if (Client.getClient() != null) {
                                 /* Registering client to the proxy if a client item is found on the local storage.
                                  This will cause a socket update on the proxy (if the client hasn't launched the application
@@ -118,7 +120,7 @@ angular.module('c3po-desktop')
                     });
                 },
                 emit: function (eventName, args) {
-                    if($rootScope.proxyOnline) {
+                    if ($rootScope.proxyOnline) {
                         socket.emit(eventName, args);
                     }
                 },
@@ -285,8 +287,8 @@ angular.module('c3po-desktop')
                     if (globalGroups[i].id === groupIdParam) {
                         globalGroups[i].nbParticipants = nbParticipantsParam;
                         // Erase group from list as they are no more subscribed users to it
-                        if(!globalGroups[i].groupActive&&globalGroups[i].nbParticipants==1) {
-                            globalGroups.splice(i,1);
+                        if (!globalGroups[i].groupActive && globalGroups[i].nbParticipants == 1) {
+                            globalGroups.splice(i, 1);
                         }
                         this.global.setGroups(globalGroups);
                         break;
@@ -302,8 +304,8 @@ angular.module('c3po-desktop')
                     for (var i = 0, len = globalGroups.length; i < len; i++) {
                         if (globalGroups[i].id === groupId) {
                             globalGroups[i].groupActive = false;
-                            if(globalGroups[i].nbParticipants==1) {
-                                globalGroups.splice(i,1);
+                            if (globalGroups[i].nbParticipants == 1) {
+                                globalGroups.splice(i, 1);
                             }
                             this.global.setGroups(globalGroups);
                             break;
@@ -315,7 +317,7 @@ angular.module('c3po-desktop')
                 if (clientGroups != null && angular.isArray(clientGroups)) {
                     for (var i = 0, len = clientGroups.length; i < len; i++) {
                         if (clientGroups[i].id === groupId) {
-                            clientGroups.splice(i,1);
+                            clientGroups.splice(i, 1);
                             this.client.setGroups(clientGroups);
                             break;
                         }

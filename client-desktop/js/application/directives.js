@@ -76,16 +76,16 @@ angular.module('c3po-desktop')
         return {
             restrict: "E",
             scope: {
-                loader:"="
+                loader: "="
             },
             templateUrl: "templates/directives/map.html",
             controller: function ($scope, $element, $attrs, $rootScope, Geolocation, Groups, Logger, Client) {
                 var markers = new Array();
-                var map, marker, infowindow,userPosition;
+                var map, marker, infowindow, userPosition;
 
-                $scope.loader=true;
+                $scope.loader = true;
 
-                $scope.client=Client.getClient();
+                $scope.client = Client.getClient();
 
                 google.maps.event.addDomListener(window, 'load', geolocateClient());
 
@@ -133,9 +133,7 @@ angular.module('c3po-desktop')
                     };
 
                     try {
-                        if (Client.getClient() != null) {
-                            map = new google.maps.Map(document.getElementById("map"), mapOptions);
-                        }
+                        map = new google.maps.Map(document.getElementById("map"), mapOptions);
                     } catch (e) {
                         Logger.log(e);
                     }
@@ -153,8 +151,8 @@ angular.module('c3po-desktop')
                             title: 'Votre position',
                             visible: true
                         });
-                        if(angular.isDefined($scope.client)){
-                            infowindow.setContent("<p class='info-window-title text-primary'><i class='icon-user-1 sm-margin-right'></i>" +$scope.client.pseudo+"</p>");
+                        if (Client.getClient() != null) {
+                            infowindow.setContent("<p class='info-window-title text-primary'><i class='icon-user-1 sm-margin-right'></i>" + $scope.client.pseudo + "</p>");
                             infowindow.open(map, userPosition);
                         }
                     })();
@@ -207,7 +205,7 @@ angular.module('c3po-desktop')
                         infowindow.close();
                         map.setCenter(userPosition.getPosition());
                         map.setZoom(16);
-                        infowindow.setContent("<p class='info-window-title text-primary'><i class='icon-user-1 sm-margin-right'></i>" +$scope.client.pseudo+"</p>");
+                        infowindow.setContent("<p class='info-window-title text-primary'><i class='icon-user-1 sm-margin-right'></i>" + $scope.client.pseudo + "</p>");
                         infowindow.open(map, userPosition);
                     });
 
@@ -241,7 +239,7 @@ angular.module('c3po-desktop')
                         });
                     }
 
-                    $scope.loader=false;
+                    $scope.loader = false;
                 }
             },
             link: function (scope, element, attrs) {
