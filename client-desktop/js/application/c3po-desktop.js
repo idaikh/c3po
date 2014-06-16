@@ -62,11 +62,11 @@ angular.module('c3po-desktop', ['ui.bootstrap','ui.router', 'ngAnimate', 'ngTouc
     .run(function ($rootScope, C3poApp) {
         /*  If devMode is set to true, local storage will be cleared at application startup (useful if an update is made
          by a developer to prevent application from crashing)    */
-        $rootScope.devMode = false;
+        $rootScope.devMode = true;
 
         /*  Use localhost for local test if a local proxy is running. Don't forget to change the address in socket.io
          src import in index.html */
-        $rootScope.proxyAddress = "http://localhost:3000";
+        $rootScope.proxyAddress = "http://vps66697.ovh.net:3000";
 
 
         /*  Initialize C3PO application, register distant (from Proxy) events listeners */

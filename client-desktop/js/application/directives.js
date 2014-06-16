@@ -153,8 +153,10 @@ angular.module('c3po-desktop')
                             title: 'Votre position',
                             visible: true
                         });
-                        infowindow.setContent("<p class='info-window-title text-primary'><i class='icon-user-1 sm-margin-right'></i>" +$scope.client.pseudo+"</p>");
-                        infowindow.open(map, userPosition);
+                        if(angular.isDefined($scope.client)){
+                            infowindow.setContent("<p class='info-window-title text-primary'><i class='icon-user-1 sm-margin-right'></i>" +$scope.client.pseudo+"</p>");
+                            infowindow.open(map, userPosition);
+                        }
                     })();
 
                     function updateMarkers(groups) {
