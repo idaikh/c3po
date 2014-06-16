@@ -1,0 +1,96 @@
+<div ng-if="!groupData.pseudoDefined">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sm-margin">
+                <h3 class="text-center text-primary tweet-sheet-name">{{groupData.group.name}}</h3>
+                <hr/>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="groupData.pseudoChoice" name="optionsRadios" id="optionsRadios1"
+                               value="option1" checked>
+                        Me connecter en tant que :
+                    </label>
+                </div>
+                <select ng-model="groupData.pseudoList"
+                        ng-options="pseudo as pseudo for pseudo in groupData.groupPseudos" class="form-control">
+                </select>
+
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="groupData.pseudoChoice" name="optionsRadios" id="optionsRadios2"
+                               value="option2">
+                        Définir un nouveau pseudonyme :
+                    </label>
+                </div>
+                <input ng-disabled="option1" type="text" class="form-control" ng-model="groupData.pseudoInput"
+                       placeholder="Nouveau pseudonyme..."/><br/>
+                <button ng-click="definePseudo()" type="button" class="btn btn-success pull-right">Valider</button>
+                <div class="clear-float"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-if="groupData.pseudoDefined">
+    <div id="tweets-sheet-toolbar">
+        <div class="container-fluid">
+            <div class="row">
+                <p class="pull-left tweet-sheet-name">
+                    {{groupData.group.name}} :: <span><i class="icon-users sm-margin-right"></i>{{groupData.group.nbParticipants}} abonné(s) </span>
+                </p>
+
+                <p class="pull-right">
+                    <button type="button" ng-if="!isGroupOwner(groupData.group.id)"
+                            ng-click="unSubscribeGroup(groupData.group.id)"
+                            ng-hide="!isSubscribedToGroup(groupData.group.id)"
+                            class="btn btn-warning btn-xs sm-radius">Désabonner
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="tweets-sheet">
+        <div class="container-fluid">
+            <div class="row tweet-toolbar">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Exprimez-vous"
+                           ng-enter="sendTweet(groupData.tweet)"
+                           ng-model="groupData.tweet"
+                           maxlength="140" required>
+                     <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" attachment-trigger>
+                            <i class="icon-camera"></i>
+                        </button>
+                        <input type="file" ng-file-select="onFileSelect($files)" id="attachmentInput"
+                               accept="image/gif, image/jpeg, image/png" style="display:none"/>
+                        <button class="btn btn-default" type="button"
+                                ng-disabled="!groupData.tweet && !groupData.attachmentSrc"
+                                ng-click="sendTweet(groupData.tweet)">
+                            Tweet
+                        </button>
+                     </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="attachment" ng-show="groupData.attachmentSrc">
+                    <span><i class="icon-attach"></i> {{file.name}}</span>
+                    <a ng-click="groupData.attachmentSrc=''"><i class="icon-trash"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <ul class="list-group tweets-list">
+                    <li class="list-group-item tweet" ng-repeat="tweet in groupData.tweets  | orderBy:'-date'">
+                        <p class="pull-left tweet-owner text-primary">{{tweet.owner}}</p>
+
+                        <p class="pull-right text-danger">{{tweet.date | date:'Le dd/MM à HH:mm'}}</p>
+
+                        <p class="clear-float tweet-content">{{tweet.content}}</p>
+                        <img ng-show="tweet.attachment" ng-src="{{tweet.attachment}}" width="200" height="127"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

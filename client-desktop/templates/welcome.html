@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="welcome-background"></div>
+    <div class="welcome-header">
+        <div class="container-fluid">
+            <div class="row">
+                <p><img class="logo" src="img/c3po.png" alt="c3po logo"/><span class="text-primary">C3PO</span></p>
+                <p class="text-danger"><i class="icon-quote-left"></i> Short-lived Social Networking <i class="icon-quote-right"></i></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="welcome">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="welcome-content card">
+                    <h3 class="text-danger"><i class="icon-info"></i>Enregistrement</h3>
+                    <hr/>
+                    <form name="createClient" novalidate ng-submit="registerNewClient(client)">
+                        <div class="form-group">
+                            <label for="prenom">Prénom
+                                <small class="text-danger">requis</small>
+                            </label>
+                            <input type="text" class="form-control" id="prenom" placeholder="Prénom"
+                                   ng-model="client.firstName"
+                                   required maxlength="15">
+                        </div>
+                        <div class="form-group">
+                            <label for="nom">Nom
+                                <small class="text-danger">requis</small>
+                            </label>
+                            <input type="text" class="form-control" id="nom" placeholder="Nom"
+                                   ng-model="client.lastName" required
+                                   maxlength="15">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adresse électronique
+                                <small class="text-danger">requis</small>
+                            </label>
+                            <input type="email" class="form-control" id="email" placeholder="Adresse électronique"
+                                   ng-model="client.mail" required>
+                  <span class="help-block">
+                     <b>e.g: "mail@example.com"</b>
+                  </span>
+                        </div>
+                        <div>
+                            <b>Pseudonyme :</b>
+                            <span ng-show="client.firstName||client.lastName ">@{{client.firstName | lowercase}}{{client.lastName | lowercase}}</span>
+                        </div>
+                        <button type="submit" class="btn btn-danger sm-radius pull-right"
+                                ng-disabled="createClient.$invalid">
+                            Suivant
+                        </button>
+                        <div class="clear-float"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="welcome-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <p>© C3PO 2014</p>
+            </div>
+        </div>
+    </div>
+</div>

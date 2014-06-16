@@ -1,0 +1,42 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="sm-margin">
+            <h4 class="text-danger"><i class="icon-info"></i>Nouveau groupe</h4>
+            <hr/>
+            <form name="createGroup" novalidate ng-submit="registerNewGroup(group)">
+                <div class="form-group">
+                    <label for="nom">Nom
+                        <small class="text-danger">requis</small>
+                    </label>
+                    <input type="text" class="form-control" id="nom" placeholder="Nom du groupe"
+                           ng-model="group.name" required>
+                </div>
+                <div class="form-group">
+                    <label for="nom">Description
+                        <small class="text-danger">requis</small>
+                    </label>
+                    <input type="text" class="form-control" id="description" placeholder="Description"
+                           ng-model="group.description" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse
+                        <small class="text-danger">requis</small>
+                    </label>
+                    <input type="text" class="form-control" id="adresse" placeholder="Localisation du groupe"
+                           ng-model="group.address" required ng-if="!useClientLocation">
+
+                    <div class="checkbox help-block">
+                        <label>
+                            <input type="checkbox" ng-model="useClientLocation" disabled>Ma position :
+                            <span class="text-success"> {{clientLocalisation.fullAddress}}</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary sm-radius pull-right" ng-disabled="createGroup.$invalid">
+                    Ajouter
+                </button>
+                <div class="clear-float"></div>
+            </form>
+        </div>
+    </div>
+</div>

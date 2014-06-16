@@ -1,0 +1,86 @@
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <i class="icon-menu link" offcanvas-c3po></i> C3PO
+            <a class="pull-right" ng-class="navClass('notifications')"
+               ng-click="openPanel('notifications');mainData.panelOpened=!mainData.panelOpened"><span
+                    class="header-item">Notifications <span
+                    class="badge">{{mainData.nbNotifications}}</span></span></a>
+            <a class="pull-right" ng-class="navClass('subscribedGroups')"
+               ng-click="openPanel('subscribedGroups');mainData.panelOpened=!mainData.panelOpened"><span
+                    class="header-item pull-right">Mes abonnements <span
+                    class="badge">{{subscribedGroups.length}}</span></span></a>
+            <a class="pull-right" ng-class="navClass('clientGroups')"
+               ng-click="openPanel('clientGroups');mainData.panelOpened=!mainData.panelOpened"><span
+                    class="header-item pull-right">Mes groupes <span
+                    class="badge">{{clientGroups.length}}</span></span></a>
+        </div>
+    </div>
+</header>
+<div ng-show="mainData.panelOpened" class="quickAccess-top-menu">
+    <div ng-switch="mainData.selectedPanel">
+        <div ng-switch-when="notifications">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="notification in mainData.notifications">{{notification}}<a
+                        class="pull-right" ng-click="removeNotification(notification)"><i class="icon-trash"></i></a>
+                </li>
+                <li class="list-group-item" ng-show="mainData.nbNotifications==0">Aucune notification</li>
+            </ul>
+        </div>
+        <div ng-switch-when="subscribedGroups">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="group in subscribedGroups">{{group.name}}<a
+                        class="pull-right" ng-click="removeNotification(notification)"><i class="icon-trash" ng-click="unSubscribeGroup(group.id)"></i></a>
+                </li>
+                <li class="list-group-item" ng-show="subscribedGroups.length==0">Aucun abonnement</li>
+            </ul>
+        </div>
+        <div ng-switch-when="clientGroups">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="group in clientGroups">{{group.name}}</li>
+                <li class="list-group-item" ng-show="clientGroups.length==0">Aucun groupe</li>
+            </ul>
+        </div>
+        <div ng-switch-default>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas-c3po">
+    <ul class="list-group">
+        <a class="icon-item" ui-sref="c3po.client">
+            <li class="list-group-item"><i class="icon-user-1"></i>Profil</li>
+        </a>
+        <a class="icon-item" ui-sref="c3po.groups.list">
+            <li class="list-group-item"><i class="icon-globe"></i>Groupes</li>
+        </a>
+    </ul>
+    <ul class="list-group offcanvas-client-groups">
+        <li class="navblock-item list-group-item"><i
+                ng-class="{'icon-plus':!mainData.clientGroupsShow,'icon-minus':mainData.clientGroupsShow}"
+                class="sm-margin-right" ng-click="mainData.clientGroupsShow=!mainData.clientGroupsShow"></i>Mes groupes
+            <span class="badge pull-right">{{clientGroups.length}}</span></li>
+        <li class="list-group-item offcanvas-client-groups-item" ng-show="mainData.clientGroupsShow"
+            ng-repeat="group in clientGroups">{{group.name}}
+        </li>
+        <li class="list-group-item" ng-show="clientGroups.length==0 && mainData.clientGroupsShow">Aucun groupe</li>
+    </ul>
+    <ul class="list-group offcanvas-subscribed-groups">
+        <li class="navblock-item list-group-item"><i
+                ng-class="{'icon-plus':!mainData.subscribedGroupsShow,'icon-minus':mainData.subscribedGroupsShow}"
+                class="sm-margin-right" ng-click="mainData.subscribedGroupsShow=!mainData.subscribedGroupsShow"></i>Mes
+            abonnements <span class="badge pull-right">{{subscribedGroups.length}}</span></li>
+        <li class="list-group-item offcanvas-subscribed-groups-item" ng-show="mainData.subscribedGroupsShow"
+            ng-repeat="group in subscribedGroups">{{group.name}}<i class="icon-trash pull-right"
+                                                                   ng-click="unSubscribeGroup(group.id)"></i><a
+                class="pull-right lg-margin-right" ui-sref="c3po.groups.group({groupId:group.id})"><i
+                class="icon-eye-1"></i></a></li>
+        <li class="list-group-item" ng-show="subscribedGroups.length==0 && mainData.subscribedGroupsShow ">Aucun
+            abonnement
+        </li>
+    </ul>
+</div>
+
+<main-page-c3po>
+    <div ui-view="mainView"></div>
+</main-page-c3po>

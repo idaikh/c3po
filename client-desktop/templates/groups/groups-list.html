@@ -1,0 +1,47 @@
+<ul class="list-group groups-list">
+    <li class="list-group-item group" ng-repeat="group in globalGroups | orderBy:'-creationDate'">
+
+        <p class="group-name pull-left">{{group.name}}<span class="small text-primary group-owner"> by {{group.ownerPseudo}}</span>
+            <span ng-show="!group.groupActive" class="text-danger"> (fermé)</span>
+        </p>
+
+        <span class="pull-right group-date">{{group.creationDate | date :'Le dd/MM à HH:mm'}}</span>
+
+        <div ng-class="group-content">
+            <p class="clear-float group-description"><i class="icon-info-1 sm-margin-right"></i>{{group.description}}
+            </p>
+
+            <p><i class="icon-location-2 sm-margin-right"></i>{{group.address.fullAddress}}</p>
+
+            <p><i class="icon-users sm-margin-right"></i>{{group.nbParticipants}} abonné(s)</p>
+
+        </div>
+        <button type="button" class="btn btn-xs btn-warning pull-left" ng-click="updateMapView(group)"><i
+                class="icon-direction"></i>
+            A {{group.distanceFromUser}} Km de vous
+        </button>
+        <span class="pull-left"> </span>
+
+        <div class="btn-toolbar group-toolbar pull-right" role="toolbar">
+            <div class="btn-group btn-group-xs">
+                <button type="button" class="btn btn-danger" ng-show="isGroupOwner(group.id)"
+                        ng-click="closeGroup(group.id)" ng-disabled="!group.groupActive"><i class="icon-trash-1 sm-margin-right"></i>Fermer
+                </button>
+                <a class="btn btn-primary" ng-click="updateMapView(group)"
+                   ui-sref="c3po.groups.group({groupId:group.id})"
+                   ng-show="isSubscribedToGroup(group.id) || isGroupOwner(group.id)"><i
+                        class="icon-eye sm-margin-right"></i>Accéder</a>
+                <button type="button" class="btn btn-success" ng-if="!isGroupOwner(group.id)"
+                        ng-hide="isSubscribedToGroup(group.id)" ng-disabled="!group.groupActive" ng-click="subscribeGroup(group.id)"><i
+                        class="icon-login sm-margin-right"></i>Abonner
+                </button>
+                <button type="button" class="btn btn-success" ng-if="!isGroupOwner(group.id)"
+                        ng-hide="!isSubscribedToGroup(group.id)" ng-click="unSubscribeGroup(group.id)"><i
+                        class="icon-logout sm-margin-right"></i>Désabonner
+                </button>
+            </div>
+        </div>
+        <div class="clear-float"></div>
+    </li>
+    <li class="list-group-item" ng-show="globalGroups.length==0">Aucun groupe</li>
+</ul>

@@ -1,0 +1,33 @@
+<div class="loader" ng-show="loader">
+    <p class="text-primary">
+
+    <h2><i class="icon-spin3 animate-spin sm-margin-right"></i>Chargement en cours...</h2></p>
+</div>
+<map-c3po loader="loader">
+
+</map-c3po>
+<div id="map-toolbar">
+    <p><i class="icon-dot-circled" ng-click="centerOnUser()"></i></p>
+</div>
+
+<div id="groups-sheet">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="groups-sheet-content">
+                <div ui-view="groupsView"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="groups-sheet-toolbar">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-6 groups-toolbar-item">
+                <a class="icon-item" ui-sref="c3po.groups.list"><i class="icon-list"></i>Liste des groupes</a>
+            </div>
+            <div class="col-xs-6 groups-toolbar-item">
+                <a class="icon-item" ui-sref="c3po.groups.add"><i class="icon-plus"></i>Ajouter un groupe</a>
+            </div>
+        </div>
+    </div>
+</div>

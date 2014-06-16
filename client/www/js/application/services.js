@@ -129,7 +129,6 @@ angular.module('c3po')
             },
             emitClient: function () {
                 Proxy.webSocket.emit("registerClient", Client.getClient().id);
-                console.log("debug", "Registering client " + Client.getClient().id + " to the proxy");
             },
             emitNewGroup: function (newGroup) {
                 Proxy.webSocket.emit("registerNewGroup", newGroup);
