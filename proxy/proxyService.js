@@ -65,7 +65,7 @@ function ProxyService() {
                 socket.on('newTweet', function (data) {
                     var clientsNamesToContact = group.getSubscribedUsersInGroup(data.groupId);
                     var clientsSocketsToContact = user.getSocketsId(clientsNamesToContact);
-                    logger.log("Received new tweet " + data.tweet.content.grey.bold + " from " + data.tweet.owner.yellow.bold + " for group " + data.groupId.red.bold);
+                    logger.log("Received new tweet from " + data.tweet.owner.yellow.bold + " for group " + data.groupId.red.bold);
                     logger.log("Broadcasting new tweet to subscribed clients " + clientsNamesToContact.join().yellow.bold +" with sockets "+clientsSocketsToContact.join().red.bold);
                     for (var i = 0, len = clientsSocketsToContact.length; i < len; i++) {
                         io.sockets.socket(clientsSocketsToContact[i]).emit('proxyNewTweet', data);
