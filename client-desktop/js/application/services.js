@@ -44,14 +44,6 @@ angular.module('c3po-desktop')
                         Proxy.webSocket.on('connect', function () {
                             $rootScope.proxyOnline = true;
 
-                            /* Enabling listeners/emitters for proxy events */
-                            ProxyEventsHandler.listenForPeriodicGroupsUpdate();
-                            ProxyEventsHandler.listenForNewGroupCreated();
-                            ProxyEventsHandler.listenForGroupUpdateParticipants();
-                            ProxyEventsHandler.listenForNewTweets();
-                            ProxyEventsHandler.listenForCloseGroup();
-                            ProxyEventsHandler.emitPeriodicGroupUpdate(10000, 5);
-
                             if (Client.getClient() != null) {
                                 /* Registering client to the proxy if a client item is found on the local storage.
                                  This will cause a socket update on the proxy (if the client hasn't launched the application
@@ -126,7 +118,9 @@ angular.module('c3po-desktop')
                     });
                 },
                 emit: function (eventName, args) {
-                    socket.emit(eventName, args);
+                    if($rootScope.proxyOnline) {
+                        socket.emit(eventName, args);
+                    }
                 },
                 connect: function (onSuccess, onError) {
                     try {
